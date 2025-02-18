@@ -37,7 +37,6 @@
     "vite": "^6.1.0"
   },
   "files": [
-    "src",
     "dist",
     "LICENSE",
     "package.json",

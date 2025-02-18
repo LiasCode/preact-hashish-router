@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "preact-simple-router",
+      "name": "preact-hashish-router",
       "devDependencies": {
         "@preact/preset-vite": "^2.10.1",
         "preact-hashish-router": "^0.0.6",
