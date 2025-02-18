@@ -9,9 +9,9 @@ type RouterProps = PropsWithChildren & {
 };
 
 export const Router = (props: RouterProps) => {
-  const [path, setPath] = useState(get_hash_route());
-  const [query, setQuery] = useState("");
-  const [itMatch, setItMatch] = useState(false);
+  const [path, setPath] = useState<string>();
+  const [query, setQuery] = useState<string>("");
+  const [itMatch, setItMatch] = useState<boolean>(false);
 
   const router_type = useMemo(() => {
     return props.type;
@@ -53,6 +53,10 @@ export const Router = (props: RouterProps) => {
     setQuery(query || "");
     setPath(path);
 
+    if (location.pathname !== "/") {
+      location.hash = location.pathname;
+      location.pathname = "";
+    }
     hashEffectHandler.effect();
     return () => hashEffectHandler.cleanUp();
   }, []);
@@ -65,15 +69,15 @@ export const Router = (props: RouterProps) => {
     return () => browserEffectHandler.cleanUp();
   }, []);
 
-  const handlerManualRouteChange = (r: string) => {
-    setPath(r);
+  const handlerManualRouteChange = (newPath: string) => {
+    setPath(newPath);
     setItMatch(false);
     if (router_type === "hash") {
-      location.hash = r;
+      location.hash = newPath;
       return;
     }
     if (router_type === "browser") {
-      history.pushState(null, "", new URL(r, location.origin));
+      history.pushState(null, "", new URL(newPath, location.origin));
       return;
     }
   };

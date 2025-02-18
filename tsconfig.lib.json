@@ -15,9 +15,8 @@
     "skipLibCheck": true,
     "paths": {
       "react": ["./node_modules/preact/compat/"],
-      "react-dom": ["./node_modules/preact/compat/"],
-      "@router": ["./src"]
+      "react-dom": ["./node_modules/preact/compat/"]
     }
   },
-  "include": ["node_modules/vite/client.d.ts", "./src", "app"]
+  "include": ["node_modules/vite/client.d.ts", "./src"]
 }

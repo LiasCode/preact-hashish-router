@@ -5,8 +5,9 @@
   "module": "dist/index.js",
   "description": "A simple router for preact",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
+    "build": "tsc -p ./tsconfig.lib.json",
     "format": "prettier --write src --ignore-unknown",
+    "app:dev": "vite",
     "prepublishOnly": "npm run build && npm run format",
     "push": "npm version patch && git push",
     "push-minor": "npm version minor && git push",
@@ -30,6 +31,7 @@
   "author": "LiasCode",
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
+    "@types/node": "^22.13.4",
     "preact-hashish-router": "^0.0.6",
     "prettier": "^3.5.1",
     "prettier-plugin-organize-imports": "^4.1.0",
