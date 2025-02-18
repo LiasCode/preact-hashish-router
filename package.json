@@ -2,6 +2,7 @@
   "name": "preact-hashish-router",
   "version": "0.0.6",
   "type": "module",
+  "module": "dist/index.js",
   "description": "A simple router for preact",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
@@ -12,7 +13,7 @@
     "push-major": "npm version major && git push"
   },
   "exports": {
-    ".": "./index.ts"
+    ".": "./dist/index.js"
   },
   "peerDependencies": {
     "preact": "^10.26.2"
@@ -29,6 +30,7 @@
   "author": "LiasCode",
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
+    "preact-hashish-router": "^0.0.6",
     "prettier": "^3.5.1",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.7.3",
@@ -36,6 +38,7 @@
   },
   "files": [
     "src",
+    "dist",
     "LICENSE",
     "package.json",
     "README.md"

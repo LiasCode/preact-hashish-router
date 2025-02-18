@@ -5,6 +5,7 @@
       "name": "preact-simple-router",
       "devDependencies": {
         "@preact/preset-vite": "^2.10.1",
+        "preact-hashish-router": "^0.0.6",
         "prettier": "^3.5.1",
         "prettier-plugin-organize-imports": "^4.1.0",
         "typescript": "^5.7.3",
@@ -241,6 +242,8 @@
     "postcss": ["postcss@8.5.2", "", { "dependencies": { "nanoid": "^3.3.8", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-MjOadfU3Ys9KYoX0AdkBlFEF1Vx37uCCeN4ZHnmwm9FfpbsGWMZeBLMmmpY+6Ocqod7mkdZ0DT31OlbsFrLlkA=="],
 
     "preact": ["preact@10.26.2", "", {}, "sha512-0gNmv4qpS9HaN3+40CLBAnKe0ZfyE4ZWo5xKlC1rVrr0ckkEvJvAQqKaHANdFKsGstoxrY4AItZ7kZSGVoVjgg=="],
+
+    "preact-hashish-router": ["preact-hashish-router@0.0.6", "", { "peerDependencies": { "preact": "^10.26.2" } }, "sha512-2ZXTQ67bKo+ShrgJFkHD79Q3NRaKRYYY0VUXBCCy14fBYYsfpJHCJ897T+9f+RFzIH1Mq8ky+jLFEyLWkXTO6Q=="],
 
     "prettier": ["prettier@3.5.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-hPpFQvHwL3Qv5AdRvBFMhnKo4tYxp0ReXiPn2bxkiohEX6mBeBwEpBSQTkD458RaaDKQMYSp4hX4UtfUTA5wDw=="],
 
