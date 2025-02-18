@@ -1,0 +1,44 @@
+{
+  "name": "preact-hashish-router",
+  "version": "0.0.2",
+  "type": "module",
+  "description": "A simple router for preact",
+  "scripts": {
+    "build": "tsc -p ./tsconfig.json",
+    "format": "prettier --write src --ignore-unknown",
+    "prepublishOnly": "npm run build && npm run format",
+    "push": "npm version patch && git push",
+    "push-minor": "npm version minor && git push",
+    "push-major": "npm version major && git push"
+  },
+  "exports": {
+    ".": "./index.ts"
+  },
+  "peerDependencies": {
+    "preact": ">=10"
+  },
+  "keywords": [
+    "preact",
+    "router",
+    "simple",
+    "routing",
+    "browser",
+    "hash"
+  ],
+  "target": "es2020",
+  "author": "LiasCode",
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.1",
+    "preact-hashish-router": "^0.0.2",
+    "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  },
+  "files": [
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ]
+}
