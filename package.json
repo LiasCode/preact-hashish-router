@@ -28,7 +28,14 @@
     "hash"
   ],
   "target": "es2020",
-  "author": "LiasCode",
+  "author": {
+    "name": "LiasCode",
+    "email": "liascode.dev@gmail.com",
+    "url": "https://lias-code.pages.dev"
+  },
+  "repository": {
+    "url": "https://github.com/LiasCode/preact-hashish-router"
+  },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
     "@types/node": "^22.13.4",
