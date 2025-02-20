@@ -7,10 +7,10 @@ const get_hash_route = () => location.hash.slice(1) || "/";
 type RouterProps = PropsWithChildren & {
   type: RouterContext["type"];
   /**
-   * Only for `hash` routers. 
-   * 
+   * Only for `hash` routers.
+   *
    * Decide if the initial pathname will be rewrite as the initial hash.
-   * 
+   *
    * `Caution`: This will replace the initial url hash
    * @default false
    */
