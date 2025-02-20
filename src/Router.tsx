@@ -6,6 +6,15 @@ const get_hash_route = () => location.hash.slice(1) || "/";
 
 type RouterProps = PropsWithChildren & {
   type: RouterContext["type"];
+  /**
+   * Only for `hash` routers. 
+   * 
+   * Decide if the initial pathname will be rewrite as the initial hash.
+   * 
+   * `Caution`: This will replace the initial url hash
+   * @default false
+   */
+  redirect_path_to_hash?: boolean;
 };
 
 export const Router = (props: RouterProps) => {
@@ -53,9 +62,11 @@ export const Router = (props: RouterProps) => {
     setQuery(query || "");
     setPath(path);
 
-    if (location.pathname !== "/") {
-      location.hash = location.pathname;
-      location.pathname = "";
+    if (props.redirect_path_to_hash === true) {
+      if (location.pathname !== "/") {
+        location.hash = location.pathname;
+        location.pathname = "";
+      }
     }
     hashEffectHandler.effect();
     return () => hashEffectHandler.cleanUp();
