@@ -88,6 +88,26 @@ export default function Header() {
 }
 ```
 
+### `<Redirect />` Component
+
+```tsx
+import { Redirect } from "preact-hashish-router";
+
+export default function ProductPage() {
+  return (
+    <>
+      <header>
+        <nav>
+          <A href="/">Home</A>
+          <A href="/about">About</A>
+        </nav>
+      </header>
+      <Redirect to="/" />
+    </>
+  );
+}
+```
+
 ## Development
 
 If you have any improvements or find any issues, feel free to contribute or open an issue in the associated repository.
