@@ -7,12 +7,19 @@ export function Header() {
         <li>
           <A href="/">Home</A>
         </li>
+
         <li>
           <A href="/about">About</A>
         </li>
+
         <li>
           <A href="/test/1">Test :id</A>
         </li>
+
+        <li>
+          <A href="/rest/anything/hey/withlove">Rest Test</A>
+        </li>
+
         <li>
           <A href="/redirect">Redirect Page</A>
         </li>

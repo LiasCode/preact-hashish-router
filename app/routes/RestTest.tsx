@@ -1,13 +1,13 @@
 import { useRouter } from "@router";
 import { Header } from "../components/Header";
 
-export default function TestIdPage() {
-  const { params } = useRouter();
+export default function RestTestPage() {
+  const { rest } = useRouter();
   return (
     <div>
       <header>
         <h1>
-          Test ID {"-> "} {params?.id}
+          Rest of /rest/* {"-> "} {rest}
         </h1>
 
         <Header />

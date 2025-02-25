@@ -4,6 +4,7 @@ import _404 from "./routes/404";
 import AboutPage from "./routes/About";
 import HomePage from "./routes/Home";
 import RedirectPage from "./routes/Redirect";
+import RestTestPage from "./routes/RestTest";
 import TestIdPage from "./routes/TestId";
 
 export function App() {
@@ -18,8 +19,15 @@ export function App() {
           <AboutPage />
         </Route>
 
-        <Route path="/test/:id">
+        <Route
+          path="/test/:id"
+          exact={true}
+        >
           <TestIdPage />
+        </Route>
+
+        <Route path="/rest/*">
+          <RestTestPage />
         </Route>
 
         <Route path="/redirect">

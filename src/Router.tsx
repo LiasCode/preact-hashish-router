@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "preact/compat";
 import { useLayoutEffect, useMemo, useState } from "preact/hooks";
 import { RouterContext, router_context } from "./context";
+import { Matches } from "./match";
 
 const get_hash_route = () => location.hash.slice(1) || "/";
 
@@ -20,6 +21,8 @@ type RouterProps = PropsWithChildren & {
 export const Router = (props: RouterProps) => {
   const [path, setPath] = useState<string>();
   const [query, setQuery] = useState<string>("");
+  const [params, setParams] = useState<Matches["params"]>({});
+  const [rest, setRest] = useState<Matches["rest"]>("");
   const [itMatch, setItMatch] = useState<boolean>(false);
 
   const router_type = useMemo(() => {
@@ -94,7 +97,18 @@ export const Router = (props: RouterProps) => {
   };
 
   const ProviderValue: RouterContext = useMemo(() => {
-    return { path, go: handlerManualRouteChange, itMatch, setItMatch, type: router_type, query };
+    return {
+      path,
+      go: handlerManualRouteChange,
+      itMatch,
+      setItMatch,
+      type: router_type,
+      query,
+      params,
+      rest,
+      setParams,
+      setRest,
+    };
   }, [path, handlerManualRouteChange, itMatch, setItMatch, router_type]);
 
   return <router_context.Provider value={ProviderValue}>{props.children}</router_context.Provider>;

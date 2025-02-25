@@ -1,4 +1,5 @@
 import { createContext } from "preact";
+import { Matches } from "./match";
 
 export type RouterContext = {
   path: string;
@@ -7,6 +8,10 @@ export type RouterContext = {
   itMatch: boolean;
   setItMatch: (r: boolean) => void;
   type: "hash" | "browser";
+  params: Matches["params"];
+  setParams: (p: Matches["params"]) => void;
+  rest: Matches["rest"];
+  setRest: (r: Matches["rest"]) => void;
 };
 
 export const router_context = createContext<RouterContext>(null);
