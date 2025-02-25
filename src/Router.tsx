@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "preact/compat";
-import { useEffect, useMemo, useState } from "preact/hooks";
+import { useLayoutEffect, useMemo, useState } from "preact/hooks";
 import { RouterContext, router_context } from "./context";
 
 const get_hash_route = () => location.hash.slice(1) || "/";
@@ -56,7 +56,7 @@ export const Router = (props: RouterProps) => {
     },
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (router_type !== "hash") return;
     const [path, query] = get_hash_route().split("?");
     setQuery(query || "");
@@ -72,7 +72,7 @@ export const Router = (props: RouterProps) => {
     return () => hashEffectHandler.cleanUp();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (router_type !== "browser") return;
     setPath(location.pathname);
     setQuery(location.search || "");

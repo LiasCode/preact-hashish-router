@@ -43,3 +43,15 @@ body {
   border-radius: 10px;
   background-color: #f5f5f5;
 }
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+a[data-route-active=true] {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  color: #d00;
+  font-weight: bold;
+}
