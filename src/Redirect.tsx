@@ -1,12 +1,12 @@
 import { Fragment, useLayoutEffect } from "preact/compat";
-import { useRouter } from "./useRouter";
+import { useInternalRouter } from "./useInternalRouter ";
 
 export type RedirectProps = {
   to: string;
 };
 
 export const Redirect = (props: RedirectProps) => {
-  const router = useRouter();
+  const router = useInternalRouter();
 
   useLayoutEffect(() => {
     router.go(props.to);

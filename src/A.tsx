@@ -1,24 +1,19 @@
 import { AnchorHTMLAttributes, forwardRef, MouseEventHandler, PropsWithChildren } from "preact/compat";
-import { useCallback, useMemo } from "preact/hooks";
-import { useRouter } from "./useRouter";
+import { useMemo } from "preact/hooks";
+import { useInternalRouter } from "./useInternalRouter ";
 
 export type AProps = PropsWithChildren & AnchorHTMLAttributes;
 
 export const A = forwardRef<HTMLAnchorElement, AProps>(({ href, className, ...props }) => {
-  const router = useRouter();
+  const router = useInternalRouter();
 
-  const isActive = useMemo(() => {
-    return router.path === href;
-  }, [router.path, href]);
+  const isActive = useMemo(() => router.path === (href as string)?.split("?")[0], [router.path, href]);
 
-  const browserRouterClickAnchorHandler: MouseEventHandler<HTMLAnchorElement> = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      router.go(href.toString());
-    },
-    [router.type]
-  );
+  const browserRouterClickAnchorHandler: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.go(href.toString());
+  };
 
   return (
     <a

@@ -1,7 +1,7 @@
 import { Component, VNode } from "preact";
 import { PropsWithChildren } from "preact/compat";
 
-export class RouterErrorBoundary extends Component<PropsWithChildren & { fallback?: VNode }> {
+export class RouterErrorBoundary extends Component<PropsWithChildren & { fallback?: VNode<any> }> {
   state = { error: null };
 
   static getDerivedStateFromError(error: any) {

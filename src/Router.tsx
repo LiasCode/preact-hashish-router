@@ -31,13 +31,14 @@ export const Router = (props: RouterProps) => {
 
   const hashEffectHandler = {
     listener: () => {
-      const [path, query] = get_hash_route().split("?");
+      const [newPath, query] = get_hash_route().split("?");
       setQuery(query || "");
-      setPath(path);
-      setItMatch(false);
+      setPath(newPath);
+      if (newPath !== path) {
+        setItMatch(false);
+      }
     },
     effect: () => {
-      if (location.hash === "") location.hash = "/";
       window.addEventListener("hashchange", hashEffectHandler.listener);
     },
     cleanUp: () => {
@@ -48,8 +49,11 @@ export const Router = (props: RouterProps) => {
   const browserEffectHandler = {
     listener: () => {
       setPath(location.pathname);
-      setQuery(location.search || "");
-      setItMatch(false);
+      setQuery(location.search.split("?")[1] || "");
+
+      if (path !== location.pathname) {
+        setItMatch(false);
+      }
     },
     effect: () => {
       window.addEventListener("popstate", browserEffectHandler.listener);
@@ -78,21 +82,30 @@ export const Router = (props: RouterProps) => {
   useLayoutEffect(() => {
     if (router_type !== "browser") return;
     setPath(location.pathname);
-    setQuery(location.search || "");
+    setQuery(location.search.split("?")[1] || "");
     browserEffectHandler.effect();
     return () => browserEffectHandler.cleanUp();
   }, []);
 
   const handlerManualRouteChange = (newPath: string) => {
-    if (path === newPath) return;
-    setPath(newPath);
-    setItMatch(false);
+    const [np, nq] = newPath.split("?");
+
+    if (path === np && query === nq) return;
+
     if (router_type === "hash") {
       location.hash = newPath;
       return;
     }
     if (router_type === "browser") {
+      setPath(np);
+      setQuery(nq || "");
+
+      if (path !== np) {
+        setItMatch(false);
+      }
+
       history.pushState(null, "", new URL(newPath, location.origin));
+
       return;
     }
   };

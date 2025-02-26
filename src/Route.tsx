@@ -1,12 +1,12 @@
 import { VNode } from "preact";
 import { PropsWithChildren, Suspense, useLayoutEffect, useState } from "preact/compat";
 import { matchRoute } from "./match";
-import { useRouter } from "./useRouter";
+import { useInternalRouter } from "./useInternalRouter ";
 
-type RouteProps = PropsWithChildren & { path: string; exact?: boolean; lazy?: boolean; fallback?: VNode };
+export type RouteProps = PropsWithChildren & { path: string; exact?: boolean; lazy?: boolean; fallback?: VNode };
 
 export function Route(props: RouteProps) {
-  const router = useRouter();
+  const router = useInternalRouter();
   const [render, setRender] = useState(false);
 
   useLayoutEffect(() => {

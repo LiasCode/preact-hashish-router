@@ -1,8 +1,8 @@
 import { PropsWithChildren, Suspense } from "preact/compat";
-import { useRouter } from "./useRouter";
+import { useInternalRouter } from "./useInternalRouter ";
 
 export function ErrorRoute(props: PropsWithChildren<{ lazy?: boolean }>) {
-  const router = useRouter();
+  const router = useInternalRouter();
 
   if (router.itMatch) return null;
 

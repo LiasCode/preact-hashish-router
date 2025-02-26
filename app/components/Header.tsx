@@ -5,7 +5,7 @@ export function Header() {
     <nav>
       <ul style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <li>
-          <A href="/">Home</A>
+          <A href="/?name=hola">Home</A>
         </li>
 
         <li>

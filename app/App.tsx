@@ -9,7 +9,7 @@ import TestIdPage from "./routes/TestId";
 
 export function App() {
   return (
-    <Router type="browser">
+    <Router type="hash">
       <RouterErrorBoundary>
         <Route path="/">
           <HomePage />
