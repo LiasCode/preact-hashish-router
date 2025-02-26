@@ -55,7 +55,7 @@ export const Router = (props: RouterProps) => {
       window.addEventListener("popstate", browserEffectHandler.listener);
     },
     cleanUp: () => {
-      window.removeEventListener("hashchange", browserEffectHandler.listener);
+      window.removeEventListener("popstate", browserEffectHandler.listener);
     },
   };
 
@@ -84,6 +84,7 @@ export const Router = (props: RouterProps) => {
   }, []);
 
   const handlerManualRouteChange = (newPath: string) => {
+    if (path === newPath) return;
     setPath(newPath);
     setItMatch(false);
     if (router_type === "hash") {

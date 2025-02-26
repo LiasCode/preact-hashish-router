@@ -1,48 +1,56 @@
-/**
- * This function is used to match a URL path against a URL path pattern.
- * All credit goes to preact-iso team.
- */
-
+// Definición del tipo Matches utilizando Record para mayor claridad en la tipificación
 export type Matches = {
-  params: {
-    [param: string]: string;
-  };
+  // Almacena los parámetros capturados con sus valores correspondientes
+  params: Record<string, string>;
+  // Puede incluir el resto de la URL en caso de coincidencias con modificadores especiales
   rest?: string;
 };
 
 /**
- * Check if a URL path matches against a URL path pattern.
- *
- * Warning: This is an internal API exported only for testing purpose. API could change in future.
- * @param urlSteps - URL path (e.g. /user/12345)
- * @param routeSteps - URL pattern (e.g. /user/:id)
+ * Compara una URL contra un patrón definido y extrae parámetros.
+ * @param url - La URL a analizar (ejemplo: "/user/12345").
+ * @param route - El patrón de URL (ejemplo: "/user/:id").
+ * @param matches - Objeto opcional para acumular coincidencias, inicializado por defecto.
+ * @returns Un objeto Matches si la URL coincide con el patrón; de lo contrario, undefined.
  */
-export const matchRoute = (url, route, matches: Matches = { params: {} }): Matches | undefined => {
-  const urlSteps = url.split("/").filter(Boolean);
-  const routeSteps = (route || "").split("/").filter(Boolean);
+export const matchRoute = (url: string, route: string, matches: Matches = { params: {} }): Matches | undefined => {
+  // Separa la URL y el patrón en segmentos, eliminando elementos vacíos para facilitar la comparación.
+  const urlSegments = url.split("/").filter(Boolean);
+  const routeSegments = route.split("/").filter(Boolean);
 
-  if (!matches.params) matches.params = {};
+  // Se itera hasta el máximo número de segmentos entre la URL y el patrón para cubrir ambos casos.
+  for (let i = 0; i < Math.max(urlSegments.length, routeSegments.length); i++) {
+    // Extrae y desestructura el segmento actual del patrón:
+    // - isParam: indica si el segmento es un parámetro (comienza con ":").
+    // - paramName: nombre del parámetro o valor literal.
+    // - modifier: puede ser '+', '*' o '?' para modificar el comportamiento de captura.
+    const [, isParam, paramName, modifier] = (routeSegments[i] || "").match(/^(:)?(.*?)([+*?]?)$/) || [];
 
-  for (let i = 0, val: any, rest: any; i < Math.max(urlSteps.length, routeSteps.length); i++) {
-    let [, m, param, flag] = (routeSteps[i] || "").match(/^(:?)(.*?)([+*?]?)$/);
-    val = urlSteps[i];
-    // segment match:
-    if (!m && param == val) continue;
-    // /foo/* match
-    if (!m && val && flag == "*") {
-      matches.rest = "/" + urlSteps.slice(i).map(decodeURIComponent).join("/");
+    // Si el segmento del patrón no es un parámetro y coincide exactamente con el de la URL, continúa.
+    if (!isParam && paramName === urlSegments[i]) continue;
+
+    // Si no es parámetro y el modificador es '*' se captura el resto de la URL.
+    if (!isParam && modifier === "*") {
+      matches.rest = `/${urlSegments.slice(i).map(decodeURIComponent).join("/")}`;
       break;
     }
-    // segment mismatch / missing required field:
-    if (!m || (!val && flag != "?" && flag != "*")) return;
-    rest = flag == "+" || flag == "*";
-    // rest (+/*) match:
-    if (rest) val = urlSteps.slice(i).map(decodeURIComponent).join("/") || undefined;
-    // normal/optional field:
-    else if (val) val = decodeURIComponent(val);
-    matches.params[param] = val;
 
-    if (rest) break;
+    // Valida que el segmento sea un parámetro y que, si es obligatorio, exista en la URL.
+    if (!isParam || (!urlSegments[i] && modifier !== "?" && modifier !== "*")) return;
+
+    // Determina si el modificador indica la captura del resto de la URL ('+' o '*').
+    const isRest = modifier === "+" || modifier === "*";
+
+    // Asigna el valor del parámetro:
+    // - Si es una captura 'rest', se unen todos los segmentos restantes.
+    // - De lo contrario, se decodifica el segmento individual.
+    matches.params[paramName] = isRest
+      ? urlSegments.slice(i).map(decodeURIComponent).join("/")
+      : decodeURIComponent(urlSegments[i]);
+
+    // Si se capturaron múltiples segmentos (caso de 'rest'), se interrumpe la iteración.
+    if (isRest) break;
   }
+  // Retorna el objeto con los parámetros y/o resto capturados.
   return matches;
 };

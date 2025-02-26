@@ -26,6 +26,7 @@ import { ErrorRoute, Route, Router, RouterErrorBoundary } from "preact-hashish-r
 import _404 from "./routes/404";
 import AboutPage from "./routes/About";
 import HomePage from "./routes/Home";
+import ProductPage from "./routes/Product";
 
 export default function App() {
   return (
@@ -37,6 +38,10 @@ export default function App() {
 
         <Route path="/about">
           <AboutPage />
+        </Route>
+
+        <Route path="/product/:id">
+          <ProductPage />
         </Route>
 
         <ErrorRoute>

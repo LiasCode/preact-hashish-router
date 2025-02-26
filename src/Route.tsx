@@ -1,23 +1,38 @@
 import { VNode } from "preact";
-import { PropsWithChildren, Suspense } from "preact/compat";
+import { PropsWithChildren, Suspense, useLayoutEffect, useState } from "preact/compat";
+import { matchRoute } from "./match";
 import { useRouter } from "./useRouter";
 
 type RouteProps = PropsWithChildren & { path: string; exact?: boolean; lazy?: boolean; fallback?: VNode };
 
 export function Route(props: RouteProps) {
   const router = useRouter();
+  const [render, setRender] = useState(false);
 
-  if (props.exact === undefined) {
-    props.exact = true;
-  }
+  useLayoutEffect(() => {
+    setRender(false);
 
-  if (props.exact && router.path !== props.path) {
-    return null;
-  } else if (!router.path.includes(props.path)) {
-    return null;
-  }
+    if (props.exact === undefined) {
+      props.exact = false;
+    }
 
-  router.setItMatch(true);
+    if (props.exact === true && router.path !== props.path) {
+      return;
+    }
+
+    const matches = matchRoute(router.path || "/", props.path);
+
+    if (props.exact === false && matches === undefined) {
+      return;
+    }
+
+    router.setParams(matches.params);
+    router.setRest(matches.rest);
+    router.setItMatch(true);
+    setRender(true);
+  }, [router.path]);
+
+  if (!render) return null;
 
   if (props.lazy) {
     return <Suspense fallback={props.fallback ?? <div>Loading...</div>}>{props.children}</Suspense>;

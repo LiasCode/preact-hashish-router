@@ -19,10 +19,7 @@ export function App() {
           <AboutPage />
         </Route>
 
-        <Route
-          path="/test/:id"
-          exact={true}
-        >
+        <Route path="/test/:id">
           <TestIdPage />
         </Route>
 

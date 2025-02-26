@@ -6,7 +6,7 @@
   "description": "A simple router for preact",
   "scripts": {
     "build": "tsc -p ./tsconfig.lib.json",
-    "format": "prettier --write src --ignore-unknown",
+    "format": "prettier --write src app --ignore-unknown",
     "app:dev": "vite",
     "prepublishOnly": "npm run build && npm run format",
     "push": "npm version patch && git push",
@@ -39,7 +39,6 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
     "@types/node": "^22.13.4",
-    "preact-hashish-router": "^0.0.6",
     "prettier": "^3.5.1",
     "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.7.3",
