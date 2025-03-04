@@ -1,6 +1,6 @@
 import { AnchorHTMLAttributes, forwardRef, MouseEventHandler, PropsWithChildren } from "preact/compat";
 import { useMemo } from "preact/hooks";
-import { useInternalRouter } from "./useInternalRouter ";
+import { useInternalRouter } from "./useInternalRouter";
 
 export type AProps = PropsWithChildren & AnchorHTMLAttributes;
 

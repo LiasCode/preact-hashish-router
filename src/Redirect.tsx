@@ -1,5 +1,5 @@
 import { Fragment, useLayoutEffect } from "preact/compat";
-import { useInternalRouter } from "./useInternalRouter ";
+import { useInternalRouter } from "./useInternalRouter";
 
 export type RedirectProps = {
   to: string;

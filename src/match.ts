@@ -1,8 +1,5 @@
-// Definición del tipo Matches utilizando Record para mayor claridad en la tipificación
 export type Matches = {
-  // Almacena los parámetros capturados con sus valores correspondientes
   params: Record<string, string>;
-  // Puede incluir el resto de la URL en caso de coincidencias con modificadores especiales
   rest?: string;
 };
 
@@ -14,7 +11,6 @@ export type Matches = {
  * @returns Un objeto Matches si la URL coincide con el patrón; de lo contrario, undefined.
  */
 export const matchRoute = (url: string, route: string, matches: Matches = { params: {} }): Matches | undefined => {
-  // Separa la URL y el patrón en segmentos, eliminando elementos vacíos para facilitar la comparación.
   const urlSegments = url.split("/").filter(Boolean);
   const routeSegments = route.split("/").filter(Boolean);
 
@@ -51,6 +47,6 @@ export const matchRoute = (url: string, route: string, matches: Matches = { para
     // Si se capturaron múltiples segmentos (caso de 'rest'), se interrumpe la iteración.
     if (isRest) break;
   }
-  // Retorna el objeto con los parámetros y/o resto capturados.
+
   return matches;
 };

@@ -1,7 +1,7 @@
 import { VNode } from "preact";
 import { PropsWithChildren, Suspense, useLayoutEffect, useState } from "preact/compat";
 import { matchRoute } from "./match";
-import { useInternalRouter } from "./useInternalRouter ";
+import { useInternalRouter } from "./useInternalRouter";
 
 export type RouteProps = PropsWithChildren & { path: string; exact?: boolean; lazy?: boolean; fallback?: VNode };
 
