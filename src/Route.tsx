@@ -26,8 +26,8 @@ export function Route(props: RouteProps) {
       return;
     }
 
-    router.setParams(matches.params);
-    router.setRest(matches.rest);
+    router.setParams(matches?.params || {});
+    router.setRest(matches?.rest);
     router.setItMatch(true);
     setRender(true);
   }, [router.path]);

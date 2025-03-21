@@ -19,4 +19,4 @@ export type RouterContext = {
   setRest: (r: Matches["rest"]) => void;
 };
 
-export const router_context = createContext<RouterContext>(null);
+export const router_context = createContext<RouterContext | null>(null);

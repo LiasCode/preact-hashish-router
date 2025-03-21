@@ -12,6 +12,8 @@ export const A = forwardRef<HTMLAnchorElement, AProps>(({ href, className, ...pr
   const browserRouterClickAnchorHandler: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!href) return;
     router.go(href.toString());
   };
 

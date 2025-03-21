@@ -19,7 +19,7 @@ type RouterProps = PropsWithChildren & {
 };
 
 export const Router = (props: RouterProps) => {
-  const [path, setPath] = useState<string>();
+  const [path, setPath] = useState<string>("");
   const [query, setQuery] = useState<string>("");
   const [params, setParams] = useState<Matches["params"]>({});
   const [rest, setRest] = useState<Matches["rest"]>("");
