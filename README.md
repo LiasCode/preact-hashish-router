@@ -30,7 +30,7 @@ import ProductPage from "./routes/Product";
 
 export default function App() {
   return (
-    <Router type="hash">
+    <Router type="hash"> {/* <-- or browser */}
       <RouterErrorBoundary>
         <Route path="/">
           <HomePage />
