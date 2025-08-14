@@ -2,7 +2,8 @@ import { useParams } from "@router";
 import { Header } from "../components/Header";
 
 export default function RestTestPage() {
-  const { _: rest } = useParams<{ _: string }>();
+  const { _: rest } = useParams();
+
   return (
     <div>
       <header>

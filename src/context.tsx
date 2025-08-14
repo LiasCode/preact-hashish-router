@@ -17,8 +17,8 @@ export const HashisherContext = createContext<HashisherContextVal & HashisherCon
   active_path: "",
   active_route_data: null,
   params: undefined,
-  go() {},
   searchParams: new URLSearchParams(),
+  go() {},
 });
 
 export const useHashisherContext = () => {
@@ -27,11 +27,12 @@ export const useHashisherContext = () => {
   return c;
 };
 
-export function useParams<T extends Record<string, string>>(): T {
+export function useParams<T extends Record<string, string>>(): T & { _?: string } {
   const c = useContext(HashisherContext);
   if (!c) throw new Error("useParams should be inside a HashisherContext provider");
   return c.params as T;
 }
+
 export function useSearchParams() {
   const c = useContext(HashisherContext);
   if (!c) throw new Error("useSearchParams should be inside a HashisherContext provider");

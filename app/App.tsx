@@ -8,7 +8,7 @@ import TestIdPage from "./routes/TestId";
 export function App() {
   return (
     <RouterErrorBoundary>
-      <Router type="hash">
+      <Router type="browser">
         <Route
           path="/"
           element={<HomePage />}

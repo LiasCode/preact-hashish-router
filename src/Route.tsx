@@ -1,6 +1,5 @@
 import { VNode } from "preact";
-import { addRoute } from "rou3";
-import { Matcher } from "./router/matcher";
+import { add_route_to_matcher } from "./router/matcher";
 
 export type RouteProps = {
   /** The route path matcher
@@ -22,10 +21,6 @@ export type RouteProps = {
 };
 
 export function Route(props: RouteProps) {
-  addRoute(Matcher, undefined, props.path, {
-    component: props.element,
-    fallback: props.fallback || null,
-    lazy: Boolean(props.lazy),
-  });
+  add_route_to_matcher(props.path, props);
   return <></>;
 }

@@ -1,12 +1,13 @@
 import { PropsWithChildren } from "preact/compat";
-import { useLayoutEffect, useState } from "preact/hooks";
+import { useCallback, useLayoutEffect, useState } from "preact/hooks";
 import { findRoute } from "rou3";
+import { parseURL } from "ufo";
 import { HashisherContext, HashisherContextVal } from "./context";
 import { RenderMatchedRoute } from "./RenderMatchedRoute";
 import { Matcher } from "./router/matcher";
 
 export type RouterProps = PropsWithChildren<{
-  type: "hash" | "browser";
+  type: /*"hash"*/ "browser";
 }>;
 
 export const Router = (props: RouterProps) => {
@@ -19,10 +20,12 @@ export const Router = (props: RouterProps) => {
   const [active_route_data, set_active_route_data] =
     useState<HashisherContextVal["active_route_data"]>(null);
 
-  useLayoutEffect(() => {
-    if (active_path === null) return;
+  const execute_path_change = useCallback((raw_path: string | null) => {
+    const url = parseURL(window.location.href);
 
-    const route_data = findRoute(Matcher, undefined, active_path);
+    const newPath = raw_path === null ? url.pathname : raw_path;
+
+    const route_data = findRoute(Matcher, undefined, newPath);
 
     if (!route_data) {
       set_active_route_data(null);
@@ -30,9 +33,35 @@ export const Router = (props: RouterProps) => {
       return;
     }
 
+    set_active_path(newPath);
+    setSearchParams(new URLSearchParams(url.search));
     setParams({ ...route_data.params });
     set_active_route_data({ ...route_data.data });
-  }, [active_path]);
+
+    if (props.type === "browser") {
+      window.history.pushState(null, "", newPath);
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (props.type !== "browser") return;
+
+    const listener = () => {
+      execute_path_change(null);
+    };
+
+    window.addEventListener("popstate", listener);
+    listener();
+
+    return () => {
+      window.removeEventListener("popstate", listener);
+    };
+  }, []);
+
+  const go_imperative = (newPath: string) => {
+    const pathname = parseURL(newPath).pathname;
+    execute_path_change(pathname);
+  };
 
   return (
     <HashisherContext.Provider
@@ -41,16 +70,7 @@ export const Router = (props: RouterProps) => {
         searchParams,
         params,
         active_route_data,
-        go(newPath) {
-          const new_path_normalized = newPath.startsWith("/") ? newPath.substring(1) : newPath;
-
-          const url = new URL(new_path_normalized, window.location.origin);
-
-          set_active_path(url.pathname);
-          setSearchParams(url.searchParams);
-
-          window.history.pushState(null, "", url);
-        },
+        go: go_imperative,
       }}
     >
       {props.children}
