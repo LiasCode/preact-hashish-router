@@ -1,15 +1,14 @@
-import { useRouter } from "@router";
+import { useParams } from "../../src/context";
 import { Header } from "../components/Header";
 
 export default function TestIdPage() {
-  const { params } = useRouter();
+  const { id } = useParams<{ id: string }>();
   return (
     <div>
       <header>
         <h1>
-          Test ID {"-> "} {params?.id}
+          Test ID {"-> "} {id}
         </h1>
-
         <Header />
       </header>
     </div>

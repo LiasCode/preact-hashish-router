@@ -13,15 +13,11 @@ export function Header() {
         </li>
 
         <li>
-          <A href="/test/1">Test :id</A>
+          <A href={`/test/${Math.trunc(Math.random() * 10)}`}>Test :id</A>
         </li>
 
         <li>
           <A href="/rest/anything/hey/withlove">Rest Test</A>
-        </li>
-
-        <li>
-          <A href="/redirect">Redirect Page</A>
         </li>
       </ul>
     </nav>

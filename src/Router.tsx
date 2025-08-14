@@ -1,129 +1,60 @@
 import { PropsWithChildren } from "preact/compat";
-import { useLayoutEffect, useMemo, useState } from "preact/hooks";
-import { RouterContext, router_context } from "./context";
-import { Matches } from "./match";
+import { useLayoutEffect, useState } from "preact/hooks";
+import { findRoute } from "rou3";
+import { HashisherContext, HashisherContextVal } from "./context";
+import { RenderMatchedRoute } from "./RenderMatchedRoute";
+import { Matcher } from "./router/matcher";
 
-const get_hash_route = () => location.hash.slice(1) || "/";
-
-type RouterProps = PropsWithChildren & {
-  type: RouterContext["type"];
-  /**
-   * Only for `hash` routers.
-   *
-   * Decide if the initial pathname will be rewrite as the initial hash.
-   *
-   * `Caution`: This will replace the initial url hash
-   * @default false
-   */
-  redirect_path_to_hash?: boolean;
-};
+export type RouterProps = PropsWithChildren<{
+  type: "hash" | "browser";
+}>;
 
 export const Router = (props: RouterProps) => {
-  const [path, setPath] = useState<string>("");
-  const [query, setQuery] = useState<string>("");
-  const [params, setParams] = useState<Matches["params"]>({});
-  const [rest, setRest] = useState<Matches["rest"]>("");
-  const [itMatch, setItMatch] = useState<boolean>(false);
-
-  const router_type = useMemo(() => {
-    return props.type;
-  }, [props.type]);
-
-  const hashEffectHandler = {
-    listener: () => {
-      const [newPath, query] = get_hash_route().split("?");
-      setQuery(query || "");
-      setPath(newPath);
-      if (newPath !== path) {
-        setItMatch(false);
-      }
-    },
-    effect: () => {
-      window.addEventListener("hashchange", hashEffectHandler.listener);
-    },
-    cleanUp: () => {
-      window.removeEventListener("hashchange", hashEffectHandler.listener);
-    },
-  };
-
-  const browserEffectHandler = {
-    listener: () => {
-      setPath(location.pathname);
-      setQuery(location.search.split("?")[1] || "");
-
-      if (path !== location.pathname) {
-        setItMatch(false);
-      }
-    },
-    effect: () => {
-      window.addEventListener("popstate", browserEffectHandler.listener);
-    },
-    cleanUp: () => {
-      window.removeEventListener("popstate", browserEffectHandler.listener);
-    },
-  };
+  const [active_path, set_active_path] = useState<HashisherContextVal["active_path"]>(() => {
+    if (typeof window !== "undefined") return window.location.pathname;
+    return null;
+  });
+  const [params, setParams] = useState<HashisherContextVal["params"]>(undefined);
+  const [searchParams, setSearchParams] = useState<URLSearchParams>(new URLSearchParams());
+  const [active_route_data, set_active_route_data] =
+    useState<HashisherContextVal["active_route_data"]>(null);
 
   useLayoutEffect(() => {
-    if (router_type !== "hash") return;
-    const [path, query] = get_hash_route().split("?");
-    setQuery(query || "");
-    setPath(path);
+    if (active_path === null) return;
 
-    if (props.redirect_path_to_hash === true) {
-      if (location.pathname !== "/") {
-        location.hash = location.pathname;
-        location.pathname = "";
-      }
-    }
-    hashEffectHandler.effect();
-    return () => hashEffectHandler.cleanUp();
-  }, []);
+    const route_data = findRoute(Matcher, undefined, active_path);
 
-  useLayoutEffect(() => {
-    if (router_type !== "browser") return;
-    setPath(location.pathname);
-    setQuery(location.search.split("?")[1] || "");
-    browserEffectHandler.effect();
-    return () => browserEffectHandler.cleanUp();
-  }, []);
-
-  const handlerManualRouteChange = (newPath: string) => {
-    const [np, nq] = newPath.split("?");
-
-    if (path === np && query === nq) return;
-
-    if (router_type === "hash") {
-      location.hash = newPath;
+    if (!route_data) {
+      set_active_route_data(null);
+      setParams(undefined);
       return;
     }
-    if (router_type === "browser") {
-      setPath(np);
-      setQuery(nq || "");
 
-      if (path !== np) {
-        setItMatch(false);
-      }
+    setParams({ ...route_data.params });
+    set_active_route_data({ ...route_data.data });
+  }, [active_path]);
 
-      history.pushState(null, "", new URL(newPath, location.origin));
+  return (
+    <HashisherContext.Provider
+      value={{
+        active_path,
+        searchParams,
+        params,
+        active_route_data,
+        go(newPath) {
+          const new_path_normalized = newPath.startsWith("/") ? newPath.substring(1) : newPath;
 
-      return;
-    }
-  };
+          const url = new URL(new_path_normalized, window.location.origin);
 
-  const ProviderValue: RouterContext = useMemo(() => {
-    return {
-      path,
-      go: handlerManualRouteChange,
-      itMatch,
-      setItMatch,
-      type: router_type,
-      query,
-      params,
-      rest,
-      setParams,
-      setRest,
-    };
-  }, [path, handlerManualRouteChange, itMatch, setItMatch, router_type]);
+          set_active_path(url.pathname);
+          setSearchParams(url.searchParams);
 
-  return <router_context.Provider value={ProviderValue}>{props.children}</router_context.Provider>;
+          window.history.pushState(null, "", url);
+        },
+      }}
+    >
+      {props.children}
+      <RenderMatchedRoute />
+    </HashisherContext.Provider>
+  );
 };

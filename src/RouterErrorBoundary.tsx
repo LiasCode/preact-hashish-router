@@ -9,7 +9,6 @@ export class RouterErrorBoundary extends Component<PropsWithChildren & { fallbac
   }
 
   componentDidCatch(error: any) {
-    console.error(error);
     this.setState({ error: error.message });
   }
 

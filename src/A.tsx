@@ -1,29 +1,26 @@
-import { AnchorHTMLAttributes, forwardRef, MouseEventHandler, PropsWithChildren } from "preact/compat";
-import { useMemo } from "preact/hooks";
-import { useInternalRouter } from "./useInternalRouter";
+import { ComponentProps, forwardRef } from "preact/compat";
+import { useHashisherContext } from "./context";
 
-export type AProps = PropsWithChildren & AnchorHTMLAttributes;
+export type AProps = Omit<ComponentProps<"a">, "href"> & {
+  href: string;
+};
 
-export const A = forwardRef<HTMLAnchorElement, AProps>(({ href, className, ...props }) => {
-  const router = useInternalRouter();
+export const A = forwardRef<HTMLAnchorElement, AProps>(({ href, ...props }, forwardedRef) => {
+  const { go } = useHashisherContext();
 
-  const isActive = useMemo(() => router.path === (href as string)?.split("?")[0], [router.path, href]);
-
-  const browserRouterClickAnchorHandler: MouseEventHandler<HTMLAnchorElement> = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!href) return;
-    router.go(href.toString());
-  };
+  if (!href) {
+    throw new Error("A: href must be defined");
+  }
 
   return (
     <a
-      href={router.type === "browser" ? href : `#${href}`}
-      className={className}
-      data-route-active={isActive}
+      ref={forwardedRef}
+      href={href}
+      onClick={(event) => {
+        event.preventDefault();
+        go(href);
+      }}
       {...props}
-      onClick={router.type === "browser" ? browserRouterClickAnchorHandler : undefined}
     />
   );
 });

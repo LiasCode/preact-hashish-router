@@ -49,5 +49,8 @@
   ],
   "peerDependencies": {
     "preact": "^10.27.0"
+  },
+  "dependencies": {
+    "rou3": "^0.7.3"
   }
 }
