@@ -7,7 +7,7 @@
 - Error handling integration with `ErrorRoute`.
 - Fully typed.
 - Ultra lightweight.
-- No external dependencies.
+- Minimal external dependencies.
 
 ## Installation
 
@@ -22,16 +22,16 @@ npm install preact-hashish-router@latest
 First, ensure your application is wrapped within the router context. This will allow you to access routes and related functions.
 
 ```tsx
-import { ErrorRoute, Route, Router, RouterErrorBoundary } from "preact-hashish-router";
-import _404 from "./routes/404";
+import { Route, Router, RouterErrorBoundary } from "preact-hashish-router";
 import AboutPage from "./routes/About";
 import HomePage from "./routes/Home";
 import ProductPage from "./routes/Product";
 
 export default function App() {
   return (
-    <Router type="hash"> {/* <-- or browser */}
-      <RouterErrorBoundary>
+    // or hash for hash-based routing
+    <RouterErrorBoundary>
+      <Router type="browser">
         <Route path="/">
           <HomePage />
         </Route>
@@ -43,12 +43,8 @@ export default function App() {
         <Route path="/product/:id">
           <ProductPage />
         </Route>
-
-        <ErrorRoute>
-          <_404 />
-        </ErrorRoute>
-      </RouterErrorBoundary>
-    </Router>
+      </Router>
+    </RouterErrorBoundary>
   );
 }
 ```
@@ -61,10 +57,10 @@ The `useRouter` hook gives you access to the router context to programmatically 
 import { useRouter } from "preact-hashish-router";
 
 function HomePage() {
-  const router = useRouter();
+  const { go, params, path, searchParams } = useRouter();
 
   function goToAbout() {
-    router.go("/about");
+    go("/about");
   }
 
   return (
@@ -89,26 +85,6 @@ export default function Header() {
         <A href="/about">About</A>
       </nav>
     </header>
-  );
-}
-```
-
-### `<Redirect />` Component
-
-```tsx
-import { Redirect } from "preact-hashish-router";
-
-export default function ProductPage() {
-  return (
-    <>
-      <header>
-        <nav>
-          <A href="/">Home</A>
-          <A href="/about">About</A>
-        </nav>
-      </header>
-      <Redirect to="/" />
-    </>
   );
 }
 ```

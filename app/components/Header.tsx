@@ -19,6 +19,10 @@ export function Header() {
         <li>
           <A href="/rest/anything/hey/withlove">Rest Test</A>
         </li>
+
+        <li>
+          <A href="/404">Not found</A>
+        </li>
       </ul>
     </nav>
   );

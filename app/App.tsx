@@ -1,4 +1,4 @@
-import { Route, Router, RouterErrorBoundary } from "@router";
+import { NotFound, Route, Router, RouterErrorBoundary } from "@router";
 import "./index.css";
 import AboutPage from "./routes/About";
 import HomePage from "./routes/Home";
@@ -28,6 +28,7 @@ export function App() {
           path="/rest/**"
           element={<RestTestPage />}
         />
+        <NotFound element={<h1>Custooooooooooom Not Founnnnnnnnnnnnd</h1>} />
       </Router>
     </RouterErrorBoundary>
   );

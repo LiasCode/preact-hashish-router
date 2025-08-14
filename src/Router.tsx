@@ -1,9 +1,10 @@
+import { VNode } from "preact";
 import { PropsWithChildren } from "preact/compat";
 import { useCallback, useLayoutEffect, useState } from "preact/hooks";
 import { findRoute } from "rou3";
 import { parseURL } from "ufo";
 import { HashisherContext, HashisherContextVal } from "./context";
-import { RenderMatchedRoute } from "./RenderMatchedRoute";
+import { RenderMatchedRoute, set_not_found_element } from "./RenderMatchedRoute";
 import { Matcher } from "./router/matcher";
 
 export type RouterProps = PropsWithChildren<{
@@ -28,8 +29,15 @@ export const Router = (props: RouterProps) => {
     const route_data = findRoute(Matcher, undefined, newPath);
 
     if (!route_data) {
+      set_active_path(newPath);
+      setSearchParams(new URLSearchParams(url.search));
+
       set_active_route_data(null);
       setParams(undefined);
+
+      if (props.type === "browser") {
+        window.history.pushState(null, "", newPath);
+      }
       return;
     }
 
@@ -77,4 +85,9 @@ export const Router = (props: RouterProps) => {
       <RenderMatchedRoute />
     </HashisherContext.Provider>
   );
+};
+
+export const NotFound = (props: { element: VNode<any> }) => {
+  set_not_found_element(props.element);
+  return <></>;
 };

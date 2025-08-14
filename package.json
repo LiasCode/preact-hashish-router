@@ -36,6 +36,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
     "@types/node": "^22.17.1",
+    "preact-render-to-string": "^6.5.13",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
     "typescript": "^5.9.2",
