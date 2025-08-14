@@ -1,10 +1,9 @@
-import { VNode } from "preact";
 import { PropsWithChildren } from "preact/compat";
 import { useCallback, useLayoutEffect, useState } from "preact/hooks";
 import { findRoute } from "rou3";
 import { parseURL } from "ufo";
 import { HashisherContext, HashisherContextVal } from "./context";
-import { RenderMatchedRoute, set_not_found_element } from "./RenderMatchedRoute";
+import { RenderMatchedRoute } from "./RenderMatchedRoute";
 import { Matcher } from "./router/matcher";
 
 export type RouterProps = PropsWithChildren<{
@@ -85,9 +84,4 @@ export const Router = (props: RouterProps) => {
       <RenderMatchedRoute />
     </HashisherContext.Provider>
   );
-};
-
-export const NotFound = (props: { element: VNode<any> }) => {
-  set_not_found_element(props.element);
-  return <></>;
 };
