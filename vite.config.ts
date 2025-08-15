@@ -10,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@router": resolve(resolve(__dirname), "./src/"),
+      "@router": resolve(resolve(__dirname), "./dist/"),
     },
   },
   define: {

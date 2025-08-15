@@ -10,6 +10,7 @@
     "checkJs": true,
     "strict": true,
 
+    "emitDeclarationOnly": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,

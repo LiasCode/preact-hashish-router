@@ -5,10 +5,12 @@
   "module": "dist/index.js",
   "description": "A simple router for preact",
   "scripts": {
-    "build": "tsc -p ./tsconfig.lib.json",
+    "types": "tsc -p ./tsconfig.lib.json",
+    "bundle": "esbuild ./src/index.ts --bundle --minify --platform=browser --packages=external --outfile=./dist/index.js --format=esm",
     "format": "prettier --write src app --ignore-unknown --cache",
     "app:dev": "vite",
-    "prepublishOnly": "npm run build",
+    "build": "rm -rf ./dist && bun run types && bun run bundle",
+    "prepublishOnly": "bun run types && bun run bundle",
     "push": "npm version patch && git push",
     "push-minor": "npm version minor && git push",
     "push-major": "npm version major && git push"
@@ -36,6 +38,7 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
     "@types/node": "^22.17.1",
+    "esbuild": "^0.25.9",
     "preact-render-to-string": "^6.5.13",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
