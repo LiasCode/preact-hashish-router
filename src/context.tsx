@@ -27,7 +27,13 @@ export const useHashisherContext = () => {
   return c;
 };
 
-export function useParams<T extends Record<string, string>>(): T & { _?: string } {
+export function useParams<T extends Record<string, string>>(): T & {
+  /** Wrap wildcards on multilevels path
+   * @example
+   * `/docs/**` will return `{"_": "some/thing"}` if the path is `/docs/some/thing`
+   */
+  _?: string;
+} {
   const c = useContext(HashisherContext);
   if (!c) throw new Error("useParams should be inside a HashisherContext provider");
   return c.params as T;
@@ -47,7 +53,7 @@ export const useRouter = () => {
   return {
     path: c.active_path,
     params: c.params,
-    go: c.go,
     searchParams: c.searchParams,
+    go: c.go,
   };
 };
