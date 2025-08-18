@@ -2,11 +2,11 @@
   "name": "preact-hashish-router",
   "version": "0.1.5",
   "type": "module",
-  "module": "dist/index.js",
   "description": "A simple router for preact",
   "scripts": {
-    "types": "tsc -p ./tsconfig.lib.json",
+    "types": "tsc -p ./tsconfig.json",
     "bundle": "esbuild ./src/index.ts --bundle --minify --platform=browser --packages=external --outfile=./dist/index.js --format=esm",
+    "bundle:watch": "esbuild --watch ./src/index.ts --bundle --minify --platform=browser --packages=external --outfile=./dist/index.js --format=esm",
     "format": "prettier --write src app --ignore-unknown --cache",
     "app:dev": "vite",
     "build": "rm -rf ./dist && bun run types && bun run bundle",
@@ -16,6 +16,9 @@
     "major": "bun pm version major && git push",
     "release": "changelogen --release --push && bun publish"
   },
+  "workspaces": [
+    "./examples/*"
+  ],
   "exports": {
     ".": "./dist/index.js"
   },
@@ -27,7 +30,6 @@
     "browser",
     "hash"
   ],
-  "target": "es2020",
   "author": {
     "name": "LiasCode",
     "email": "liascode.dev@gmail.com",
@@ -36,27 +38,24 @@
   "repository": {
     "url": "https://github.com/LiasCode/preact-hashish-router"
   },
-  "devDependencies": {
-    "@preact/preset-vite": "^2.10.2",
-    "@types/node": "^22.17.1",
-    "esbuild": "^0.25.9",
-    "preact-render-to-string": "^6.5.13",
-    "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^4.2.0",
-    "typescript": "^5.9.2",
-    "vite": "^6.3.5"
-  },
   "files": [
     "dist",
     "LICENSE",
     "package.json",
     "README.md"
   ],
-  "peerDependencies": {
-    "preact": "^10.27.0"
-  },
   "dependencies": {
     "rou3": "^0.7.3",
     "ufo": "^1.6.1"
+  },
+  "peerDependencies": {
+    "preact": "^10.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.17.1",
+    "esbuild": "^0.25.9",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.2.0",
+    "typescript": "^5.9.2"
   }
 }
