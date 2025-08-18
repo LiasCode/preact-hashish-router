@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.7
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- Add support for hash router ([df651c1](https://github.com/LiasCode/preact-hashish-router/commit/df651c1))
+
+### 🏡 Chore
+
+- Update @types/node to version 22.17.2 ([39b4863](https://github.com/LiasCode/preact-hashish-router/commit/39b4863))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.6
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.5...v0.1.6)
