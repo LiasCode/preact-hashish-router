@@ -1,6 +1,34 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- Add example workspace ([ff5df86](https://github.com/LiasCode/preact-hashish-router/commit/ff5df86))
+
+### 🩹 Fixes
+
+- Correct path in format script for prettier ([4e009b5](https://github.com/LiasCode/preact-hashish-router/commit/4e009b5))
+
+### 💅 Refactors
+
+- Improve type annotations in context functions ([1849abf](https://github.com/LiasCode/preact-hashish-router/commit/1849abf))
+
+### 📖 Documentation
+
+- Correct order of routing types and improve App component structure ([10de295](https://github.com/LiasCode/preact-hashish-router/commit/10de295))
+
+### 🏡 Chore
+
+- Add changelogen as a dev dependency ([dce7c5e](https://github.com/LiasCode/preact-hashish-router/commit/dce7c5e))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.5
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.4...v0.1.5)
