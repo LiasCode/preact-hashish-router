@@ -7,7 +7,7 @@
     "types": "tsc -p ./tsconfig.json",
     "bundle": "esbuild ./src/index.ts --bundle --minify --platform=browser --packages=external --outfile=./dist/index.js --format=esm",
     "bundle:watch": "esbuild --watch ./src/index.ts --bundle --minify --platform=browser --packages=external --outfile=./dist/index.js --format=esm",
-    "format": "prettier --write src app --ignore-unknown --cache",
+    "format": "prettier --write ./src --ignore-unknown --cache",
     "app:dev": "vite",
     "build": "rm -rf ./dist && bun run types && bun run bundle",
     "prepublishOnly": "bun run types && bun run bundle",
