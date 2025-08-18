@@ -1,6 +1,6 @@
 {
   "name": "preact-hashish-router",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "module": "dist/index.js",
   "description": "A simple router for preact",
