@@ -2,7 +2,7 @@
 
 ## Features
 
-- `hash` and `browser` routing types.
+- `browser` and `hash` routing types.
 - Support for lazy-loaded routes (`lazy` loading).
 - Error handling integration with `ErrorRoute`.
 - Fully typed.
@@ -22,27 +22,38 @@ npm install preact-hashish-router@latest
 First, ensure your application is wrapped within the router context. This will allow you to access routes and related functions.
 
 ```tsx
-import { Route, Router, RouterErrorBoundary } from "preact-hashish-router";
-import AboutPage from "./routes/About";
-import HomePage from "./routes/Home";
-import ProductPage from "./routes/Product";
+import { NotFound, Route, Router, RouterErrorBoundary } from "preact-hashish-router";
+import { About } from "./routes/About";
+import { AllLevelWildcard } from "./routes/AllLevelWildcard";
+import { Home } from "./routes/Home";
+import { OneLevelWildcard } from "./routes/OneLevelWildcard";
+import { ProductDetails } from "./routes/ProductDetails";
 
-export default function App() {
+export function App() {
   return (
-    // or hash for hash-based routing
     <RouterErrorBoundary>
       <Router type="browser">
-        <Route path="/">
-          <HomePage />
-        </Route>
-
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-
-        <Route path="/product/:id">
-          <ProductPage />
-        </Route>
+        <Route
+          path="/"
+          element={<Home />}
+        />
+        <Route
+          path="/about"
+          element={<About />}
+        />
+        <Route
+          path="/product/:id"
+          element={<ProductDetails />}
+        />
+        <Route
+          path="/one-level-wildcard/*"
+          element={<OneLevelWildcard />}
+        />
+        <Route
+          path="/all-level-wildcard/**"
+          element={<AllLevelWildcard />}
+        />
+        <NotFound element={<h1>Custom Not Found Element</h1>} />
       </Router>
     </RouterErrorBoundary>
   );
