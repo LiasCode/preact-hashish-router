@@ -8,7 +8,10 @@ import { ProductDetails } from "./routes/ProductDetails";
 export function App() {
   return (
     <RouterErrorBoundary>
-      <Router type="browser">
+      <Router
+        type="hash"
+        redirect_path_to_hash
+      >
         <Route
           path="/"
           element={<Home />}
