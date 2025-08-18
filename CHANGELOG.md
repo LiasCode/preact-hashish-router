@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.2...v0.1.3)
+
+### 🏡 Chore
+
+- Testing auto publish with npm token ([af0594c](https://github.com/LiasCode/preact-hashish-router/commit/af0594c))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.0
 
 Change the entire routing system in favor of a more robust and flexible solution, enhancing the overall routing experience in Preact applications. Based in the [rou3](https://github.com/h3js/rou3) router.
