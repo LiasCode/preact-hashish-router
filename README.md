@@ -8,6 +8,7 @@
 - Fully typed.
 - Ultra lightweight.
 - Minimal external dependencies.
+- Super fast route matching using [unjs/rou3](https://github.com/h3js/rou3)
 
 ## Installation
 
