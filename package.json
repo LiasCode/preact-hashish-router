@@ -11,9 +11,10 @@
     "app:dev": "vite",
     "build": "rm -rf ./dist && bun run types && bun run bundle",
     "prepublishOnly": "bun run types && bun run bundle",
-    "push": "npm version patch && git push",
-    "push-minor": "npm version minor && git push",
-    "push-major": "npm version major && git push"
+    "patch": "bun pm version patch && git push",
+    "minor": "bun pm version minor && git push",
+    "major": "bun pm version major && git push",
+    "release": "changelogen --release --push && bun publish"
   },
   "exports": {
     ".": "./dist/index.js"
