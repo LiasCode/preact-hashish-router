@@ -1,6 +1,6 @@
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
-import { RouteMatched } from "./router/matcher";
+import type { RouteMatched } from "./router/matcher";
 
 export type HashisherContextVal = {
   active_path: string | null;

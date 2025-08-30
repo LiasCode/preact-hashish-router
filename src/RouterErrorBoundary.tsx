@@ -1,5 +1,5 @@
-import { Component, VNode } from "preact";
-import { PropsWithChildren } from "preact/compat";
+import { Component, type VNode } from "preact";
+import type { PropsWithChildren } from "preact/compat";
 
 export class RouterErrorBoundary extends Component<PropsWithChildren & { fallback?: VNode<any> }> {
   state = { error: null };

@@ -1,6 +1,6 @@
-import { VNode } from "preact";
-import { addRoute, createRouter, MatchedRoute } from "rou3";
-import { RouteProps } from "../Route";
+import type { VNode } from "preact";
+import { addRoute, createRouter, type MatchedRoute } from "rou3";
+import type { RouteProps } from "../Route";
 
 export type MatcherPayload = {
   component: VNode<any>;

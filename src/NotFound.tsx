@@ -1,4 +1,4 @@
-import { VNode } from "preact";
+import type { VNode } from "preact";
 
 export const NotFound = (props: { element: VNode<any> }) => {
   set_not_found_element(props.element);

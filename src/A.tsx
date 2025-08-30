@@ -1,4 +1,4 @@
-import { ComponentProps, forwardRef } from "preact/compat";
+import { type ComponentProps, forwardRef } from "preact/compat";
 import { useHashisherContext } from "./context";
 
 export type AProps = Omit<ComponentProps<"a">, "href"> & {

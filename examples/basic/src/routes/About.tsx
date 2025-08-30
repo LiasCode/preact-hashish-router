@@ -13,7 +13,7 @@ export function About() {
       <div>
         <a
           href="https://vite.dev"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           <img
             src={viteLogo}
@@ -23,7 +23,7 @@ export function About() {
         </a>
         <a
           href="https://preactjs.com"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           <img
             src={preactLogo}
@@ -43,7 +43,7 @@ export function About() {
         Check out{" "}
         <a
           href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           create-preact
         </a>

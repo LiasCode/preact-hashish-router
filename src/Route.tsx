@@ -1,4 +1,4 @@
-import { VNode } from "preact";
+import type { VNode } from "preact";
 import { add_route_to_matcher } from "./router/matcher";
 
 export type RouteProps = {

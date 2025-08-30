@@ -11,8 +11,8 @@ export function Header() {
         <A href="/">Home</A>
         <A href="/about">About</A>
         <A href={`/product/${id}`}>:Dynamic {id}</A>
-        <A href={`/one-level-wildcard/only-one-level`}>One Level Wildcard</A>
-        <A href={`/all-level-wildcard/all/the/levels`}>All Level Wildcard</A>
+        <A href={"/one-level-wildcard/only-one-level"}>One Level Wildcard</A>
+        <A href={"/all-level-wildcard/all/the/levels"}>All Level Wildcard</A>
 
         <A href="/nothing-here">Nothing Here (404)</A>
       </nav>
