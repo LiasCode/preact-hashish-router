@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.1.8
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.7...v0.1.8)
+
+### 🩹 Fixes
+
+- Ignore clicks events when a control key is pressed ([7c78ddd](https://github.com/LiasCode/preact-hashish-router/commit/7c78ddd))
+
+### 💅 Refactors
+
+- Add biome for code linting ([62465e5](https://github.com/LiasCode/preact-hashish-router/commit/62465e5))
+
+### 📖 Documentation
+
+- Add note about super fast route matching using unjs/rou3 ([17759b1](https://github.com/LiasCode/preact-hashish-router/commit/17759b1))
+
+### 🏡 Chore
+
+- Bump @types/node ([6d35700](https://github.com/LiasCode/preact-hashish-router/commit/6d35700))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.7
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.6...v0.1.7)
