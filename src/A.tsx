@@ -17,7 +17,21 @@ export const A = forwardRef<HTMLAnchorElement, AProps>(({ href, ...props }, forw
       ref={forwardedRef}
       href={href}
       onClick={(event) => {
+        if (event && event.type === "click") {
+          // ignore events the browser takes care of already:
+          if (
+            event.ctrlKey ||
+            event.metaKey ||
+            event.altKey ||
+            event.shiftKey ||
+            event.button !== 0
+          ) {
+            return;
+          }
+        }
+
         event.preventDefault();
+
         go(href);
       }}
       {...props}
