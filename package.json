@@ -18,7 +18,8 @@
     "./examples/*"
   ],
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
   },
   "keywords": [
     "preact",
@@ -44,19 +45,19 @@
     "README.md"
   ],
   "dependencies": {
-    "rou3": "^0.7.3",
-    "ufo": "^1.6.1"
+    "rou3": "0.7.3",
+    "ufo": "1.6.1"
   },
   "peerDependencies": {
-    "preact": "^10.27.0"
+    "preact": "10.27.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@types/node": "^22.18.0",
-    "changelogen": "^0.6.2",
-    "esbuild": "^0.25.9",
-    "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^4.2.0",
-    "typescript": "^5.9.2"
+    "@types/node": "22.18.0",
+    "changelogen": "0.6.2",
+    "esbuild": "0.25.9",
+    "prettier": "3.6.2",
+    "prettier-plugin-organize-imports": "4.2.0",
+    "typescript": "5.9.2"
   }
 }

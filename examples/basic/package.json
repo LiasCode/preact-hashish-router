@@ -13,8 +13,8 @@
     "preact-hashish-router": "link:preact-hashish-router"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.2",
-    "typescript": "~5.8.3",
-    "vite": "^7.1.2"
+    "@preact/preset-vite": "2.10.2",
+    "typescript": "5.8.3",
+    "vite": "7.1.2"
   }
 }
