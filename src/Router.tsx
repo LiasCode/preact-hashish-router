@@ -38,53 +38,24 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
       if (props.onBeforeRouteChange) {
         await props.onBeforeRouteChange();
       }
-      const url = parseURL(window.location.href);
 
-      let new_internal_path = raw_path || "";
-
-      // If raw_path is null, we use the current path or hash from the URL.
-      if (raw_path === null) {
-        if (router_type === "hash") {
-          new_internal_path = url.hash;
-        } else {
-          new_internal_path = url.pathname;
-        }
-      }
-
-      const route_data = findRoute(Matcher, undefined, new_internal_path);
-
-      if (!route_data) {
-        set_active_path(new_internal_path);
-        setSearchParams(new URLSearchParams(url.search));
-
-        set_active_route_data(null);
-        setParams(undefined);
-
-        if (router_type === "browser") {
-          window.history.pushState(null, "", new_internal_path);
-        }
-        if (router_type === "hash") {
-          window.location.hash = new_internal_path;
-        }
-
-        if (props.onRouteDidChange) {
-          await props.onRouteDidChange();
-        }
-        return;
-      }
-
-      set_active_path(new_internal_path);
-      setSearchParams(new URLSearchParams(url.search));
-      setParams({ ...route_data.params });
-      set_active_route_data({ ...route_data.data });
+      const { params, path, route_data, search_params } = await calculateNextRouteData(
+        raw_path,
+        router_type
+      );
 
       if (router_type === "browser") {
-        window.history.pushState(null, "", new_internal_path);
+        window.history.pushState(null, "", path);
       }
 
       if (router_type === "hash") {
-        window.location.hash = new_internal_path;
+        window.location.hash = path;
       }
+
+      set_active_path(path);
+      setParams(params);
+      setSearchParams(search_params);
+      set_active_route_data(route_data);
 
       if (props.onRouteDidChange) {
         await props.onRouteDidChange();
@@ -142,4 +113,40 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
       <RenderMatchedRoute />
     </HashisherContext.Provider>
   );
+};
+
+const calculateNextRouteData = async (
+  raw_path: string | null,
+  router_type: RouterProps["type"] = "browser"
+) => {
+  const url = parseURL(window.location.href);
+
+  let new_internal_path = raw_path || "";
+
+  // If raw_path is null, we use the current path or hash from the URL.
+  if (raw_path === null) {
+    if (router_type === "hash") {
+      new_internal_path = url.hash;
+    } else {
+      new_internal_path = url.pathname;
+    }
+  }
+
+  const route_data = findRoute(Matcher, undefined, new_internal_path);
+
+  if (!route_data) {
+    return {
+      path: new_internal_path,
+      search_params: new URLSearchParams(url.search),
+      route_data: null,
+      params: undefined,
+    };
+  }
+
+  return {
+    path: new_internal_path,
+    search_params: new URLSearchParams(url.search),
+    route_data: { ...route_data.data },
+    params: { ...route_data.params },
+  };
 };
