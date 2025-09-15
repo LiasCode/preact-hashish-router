@@ -8,7 +8,14 @@ import { ProductDetails } from "./routes/ProductDetails";
 export function App() {
   return (
     <RouterErrorBoundary>
-      <Router type="browser">
+      <Router
+        onRouteDidChange={() => {
+          console.log("onRouteDidChange");
+        }}
+        onBeforeRouteChange={() => {
+          console.log("onBeforeRouteChange");
+        }}
+      >
         <Route
           path="/"
           element={<Home />}

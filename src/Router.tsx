@@ -7,7 +7,10 @@ import { RenderMatchedRoute } from "./RenderMatchedRoute";
 import { Matcher } from "./router/matcher";
 
 export type RouterProps = PropsWithChildren<{
-  type: "hash" | "browser";
+  /**
+   * @default browser
+   */
+  type?: "hash" | "browser";
   /**
    * Only for `hash` routers.
    *
@@ -18,9 +21,12 @@ export type RouterProps = PropsWithChildren<{
    * @deprecated
    */
   redirect_path_to_hash?: boolean;
+
+  onBeforeRouteChange?: () => Promise<void> | void;
+  onRouteDidChange?: () => Promise<void> | void;
 }>;
 
-export const Router = (props: RouterProps) => {
+export const Router = ({ type: router_type = "browser", ...props }: RouterProps) => {
   const [active_path, set_active_path] = useState<HashisherContextVal["active_path"]>("/");
   const [params, setParams] = useState<HashisherContextVal["params"]>(undefined);
   const [searchParams, setSearchParams] = useState<URLSearchParams>(new URLSearchParams());
@@ -28,14 +34,17 @@ export const Router = (props: RouterProps) => {
     useState<HashisherContextVal["active_route_data"]>(null);
 
   const execute_path_change = useCallback(
-    (raw_path: string | null) => {
+    async (raw_path: string | null) => {
+      if (props.onBeforeRouteChange) {
+        await props.onBeforeRouteChange();
+      }
       const url = parseURL(window.location.href);
 
       let new_internal_path = raw_path || "";
 
       // If raw_path is null, we use the current path or hash from the URL.
       if (raw_path === null) {
-        if (props.type === "hash") {
+        if (router_type === "hash") {
           new_internal_path = url.hash;
         } else {
           new_internal_path = url.pathname;
@@ -51,11 +60,15 @@ export const Router = (props: RouterProps) => {
         set_active_route_data(null);
         setParams(undefined);
 
-        if (props.type === "browser") {
+        if (router_type === "browser") {
           window.history.pushState(null, "", new_internal_path);
         }
-        if (props.type === "hash") {
+        if (router_type === "hash") {
           window.location.hash = new_internal_path;
+        }
+
+        if (props.onRouteDidChange) {
+          await props.onRouteDidChange();
         }
         return;
       }
@@ -65,19 +78,23 @@ export const Router = (props: RouterProps) => {
       setParams({ ...route_data.params });
       set_active_route_data({ ...route_data.data });
 
-      if (props.type === "browser") {
+      if (router_type === "browser") {
         window.history.pushState(null, "", new_internal_path);
       }
 
-      if (props.type === "hash") {
+      if (router_type === "hash") {
         window.location.hash = new_internal_path;
       }
+
+      if (props.onRouteDidChange) {
+        await props.onRouteDidChange();
+      }
     },
-    [props.type]
+    [router_type, props.onBeforeRouteChange, props.onRouteDidChange]
   );
 
   useLayoutEffect(() => {
-    if (props.type !== "browser") return;
+    if (router_type !== "browser") return;
 
     const listener = () => {
       execute_path_change(null);
@@ -89,10 +106,10 @@ export const Router = (props: RouterProps) => {
     return () => {
       window.removeEventListener("popstate", listener);
     };
-  }, [execute_path_change, props.type]);
+  }, [execute_path_change, router_type]);
 
   useLayoutEffect(() => {
-    if (props.type !== "hash") return;
+    if (router_type !== "hash") return;
 
     const listener = () => {
       execute_path_change(null);
@@ -104,9 +121,9 @@ export const Router = (props: RouterProps) => {
     return () => {
       window.removeEventListener("hashchange", listener);
     };
-  }, [execute_path_change, props.type]);
+  }, [execute_path_change, router_type]);
 
-  const go_imperative = (newPath: string) => {
+  const go_imperative = async (newPath: string) => {
     const pathname = parseURL(newPath).pathname;
     execute_path_change(pathname);
   };

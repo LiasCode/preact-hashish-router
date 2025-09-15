@@ -10,7 +10,7 @@ export type HashisherContextVal = {
 };
 
 export type HashisherContextMethods = {
-  go(newPath: string): void;
+  go(newPath: string): Promise<void>;
 };
 
 export const HashisherContext = createContext<HashisherContextVal & HashisherContextMethods>({
@@ -18,7 +18,7 @@ export const HashisherContext = createContext<HashisherContextVal & HashisherCon
   active_route_data: null,
   params: undefined,
   searchParams: new URLSearchParams(),
-  go() {},
+  async go() {},
 });
 
 export const useHashisherContext = () => {

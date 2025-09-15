@@ -17,7 +17,7 @@
         "typescript": "5.9.2",
       },
       "peerDependencies": {
-        "preact": "^10.27.1",
+        "preact": "10.27.2",
       },
     },
     "examples/basic": {
