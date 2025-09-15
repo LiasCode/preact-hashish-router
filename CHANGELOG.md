@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.1.9
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.8...v0.1.9)
+
+### 🩹 Fixes
+
+- Mark deps as exact ([d5f0779](https://github.com/LiasCode/preact-hashish-router/commit/d5f0779))
+- PeerDependencies range ([f31e1e0](https://github.com/LiasCode/preact-hashish-router/commit/f31e1e0))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.8
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.7...v0.1.8)
