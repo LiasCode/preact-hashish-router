@@ -9,6 +9,7 @@ export function App() {
   return (
     <RouterErrorBoundary>
       <Router
+        ignoreInitial
         onRouteDidChange={() => {
           console.log("onRouteDidChange");
         }}

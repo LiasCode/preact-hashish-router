@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "preact/compat";
-import { useCallback, useLayoutEffect, useState } from "preact/hooks";
+import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { findRoute } from "rou3";
 import { parseURL } from "ufo";
 import { HashisherContext, type HashisherContextVal } from "./context";
@@ -22,21 +22,44 @@ export type RouterProps = PropsWithChildren<{
    */
   redirect_path_to_hash?: boolean;
 
+  /**
+   * Trigger hook before the next route calcultation begin
+   */
   onBeforeRouteChange?: () => Promise<void> | void;
+  /**
+   * Trigger hook when the next route calcultation finish
+   */
   onRouteDidChange?: () => Promise<void> | void;
+  /**
+   * If true don't trigger hooks on first render
+   * @default false
+   */
+  ignoreInitial?: boolean;
 }>;
 
-export const Router = ({ type: router_type = "browser", ...props }: RouterProps) => {
+export const Router = ({
+  type: router_type = "browser",
+  ignoreInitial = false,
+  ...props
+}: RouterProps) => {
   const [active_path, set_active_path] = useState<HashisherContextVal["active_path"]>("/");
   const [params, setParams] = useState<HashisherContextVal["params"]>(undefined);
   const [searchParams, setSearchParams] = useState<URLSearchParams>(new URLSearchParams());
   const [active_route_data, set_active_route_data] =
     useState<HashisherContextVal["active_route_data"]>(null);
+  const renderCount = useRef(0);
 
-  const execute_path_change = useCallback(
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <>
+  const exec_route_change = useCallback(
     async (raw_path: string | null) => {
-      if (props.onBeforeRouteChange) {
-        await props.onBeforeRouteChange();
+      console.log({ ignoreInitial, renderCount });
+
+      if (ignoreInitial === true) {
+        if (renderCount.current !== 0) {
+          await props.onBeforeRouteChange?.();
+        }
+      } else {
+        await props.onBeforeRouteChange?.();
       }
 
       const { params, path, route_data, search_params } = await calculateNextRouteData(
@@ -57,9 +80,15 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
       setSearchParams(search_params);
       set_active_route_data(route_data);
 
-      if (props.onRouteDidChange) {
-        await props.onRouteDidChange();
+      if (ignoreInitial === true) {
+        if (renderCount.current !== 0) {
+          await props.onRouteDidChange?.();
+        }
+      } else {
+        await props.onRouteDidChange?.();
       }
+
+      renderCount.current += 1;
     },
     [router_type, props.onBeforeRouteChange, props.onRouteDidChange]
   );
@@ -68,7 +97,7 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
     if (router_type !== "browser") return;
 
     const listener = () => {
-      execute_path_change(null);
+      exec_route_change(null);
     };
 
     window.addEventListener("popstate", listener);
@@ -77,13 +106,13 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
     return () => {
       window.removeEventListener("popstate", listener);
     };
-  }, [execute_path_change, router_type]);
+  }, [exec_route_change, router_type]);
 
   useLayoutEffect(() => {
     if (router_type !== "hash") return;
 
     const listener = () => {
-      execute_path_change(null);
+      exec_route_change(null);
     };
 
     window.addEventListener("hashchange", listener);
@@ -92,11 +121,11 @@ export const Router = ({ type: router_type = "browser", ...props }: RouterProps)
     return () => {
       window.removeEventListener("hashchange", listener);
     };
-  }, [execute_path_change, router_type]);
+  }, [exec_route_change, router_type]);
 
   const go_imperative = async (newPath: string) => {
     const pathname = parseURL(newPath).pathname;
-    execute_path_change(pathname);
+    exec_route_change(pathname);
   };
 
   return (
