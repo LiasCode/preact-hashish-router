@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.10
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.9...v0.1.10)
+
+### 🚀 Enhancements
+
+- Add hooks for router life cycle ([08df701](https://github.com/LiasCode/preact-hashish-router/commit/08df701))
+- Add ignoreInitial prop ([9babb8b](https://github.com/LiasCode/preact-hashish-router/commit/9babb8b))
+
+### 💅 Refactors
+
+- Extract route data calculation ([8c30f99](https://github.com/LiasCode/preact-hashish-router/commit/8c30f99))
+
+### 🏡 Chore
+
+- Remove imgs from about and home example ([3b44995](https://github.com/LiasCode/preact-hashish-router/commit/3b44995))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.9
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.8...v0.1.9)
