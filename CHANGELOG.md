@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.11
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.10...v0.1.11)
+
+### 🏡 Chore
+
+- Add lazy example ([9d93a71](https://github.com/LiasCode/preact-hashish-router/commit/9d93a71))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.10
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.9...v0.1.10)
