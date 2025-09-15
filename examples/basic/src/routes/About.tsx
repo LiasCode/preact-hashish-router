@@ -2,7 +2,7 @@ import { useState } from "preact/hooks";
 import { Header } from "../layout/Header";
 import "./Home.css";
 
-export function About() {
+export default function About() {
   const [count, setCount] = useState(0);
 
   return (
