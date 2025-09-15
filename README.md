@@ -1,10 +1,12 @@
 # Preact Hashish Router
 
+A simple router for preact with support for hash and browser routing.
+
 ## Features
 
 - `browser` and `hash` routing types.
 - Support for lazy-loaded routes (`lazy` loading).
-- Error handling integration with `ErrorRoute`.
+- Error handling.
 - Fully typed.
 - Ultra lightweight.
 - Minimal external dependencies.
