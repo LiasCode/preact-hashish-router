@@ -1,8 +1,6 @@
 import { useState } from "preact/hooks";
-import preactLogo from "../assets/preact.svg";
 import { Header } from "../layout/Header";
 import "./Home.css";
-import viteLogo from "/vite.svg";
 
 export function About() {
   const [count, setCount] = useState(0);
@@ -10,28 +8,6 @@ export function About() {
   return (
     <>
       <Header />
-      <div>
-        <a
-          href="https://vite.dev"
-          target="_blank" rel="noreferrer"
-        >
-          <img
-            src={viteLogo}
-            class="logo"
-            alt="Vite logo"
-          />
-        </a>
-        <a
-          href="https://preactjs.com"
-          target="_blank" rel="noreferrer"
-        >
-          <img
-            src={preactLogo}
-            class="logo preact"
-            alt="Preact logo"
-          />
-        </a>
-      </div>
       <h1>About Page</h1>
       <div class="card">
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
@@ -43,7 +19,8 @@ export function About() {
         Check out{" "}
         <a
           href="https://preactjs.com/guide/v10/getting-started#create-a-vite-powered-preact-app"
-          target="_blank" rel="noreferrer"
+          target="_blank"
+          rel="noreferrer"
         >
           create-preact
         </a>
