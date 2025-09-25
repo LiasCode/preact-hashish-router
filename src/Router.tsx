@@ -23,13 +23,13 @@ export type RouterProps = PropsWithChildren<{
   redirect_path_to_hash?: boolean;
 
   /**
-   * Trigger hook before the next route calcultation begin
+   * Trigger hook before push new route entry
    */
-  onBeforeRouteChange?: () => Promise<void> | void;
+  onBeforeRouteChange?: (path: string) => Promise<void> | void;
   /**
-   * Trigger hook when the next route calcultation finish
+   * Trigger hook after push new route entry
    */
-  onRouteDidChange?: () => Promise<void> | void;
+  onRouteDidChange?: (path: string) => Promise<void> | void;
   /**
    * If true don't trigger hooks on first render
    * @default false
@@ -52,20 +52,18 @@ export const Router = ({
   // biome-ignore lint/correctness/useExhaustiveDependencies: <>
   const exec_route_change = useCallback(
     async (raw_path: string | null) => {
-      console.log({ ignoreInitial, renderCount });
-
-      if (ignoreInitial === true) {
-        if (renderCount.current !== 0) {
-          await props.onBeforeRouteChange?.();
-        }
-      } else {
-        await props.onBeforeRouteChange?.();
-      }
-
       const { params, path, route_data, search_params } = await calculateNextRouteData(
         raw_path,
         router_type
       );
+
+      if (ignoreInitial === true) {
+        if (renderCount.current !== 0) {
+          await props.onBeforeRouteChange?.(path);
+        }
+      } else {
+        await props.onBeforeRouteChange?.(path);
+      }
 
       if (router_type === "browser") {
         window.history.pushState(null, "", path);
@@ -82,10 +80,10 @@ export const Router = ({
 
       if (ignoreInitial === true) {
         if (renderCount.current !== 0) {
-          await props.onRouteDidChange?.();
+          await props.onRouteDidChange?.(path);
         }
       } else {
-        await props.onRouteDidChange?.();
+        await props.onRouteDidChange?.(path);
       }
 
       renderCount.current += 1;

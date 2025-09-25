@@ -12,11 +12,11 @@ export function App() {
     <RouterErrorBoundary>
       <Router
         ignoreInitial
-        onRouteDidChange={() => {
-          console.log("onRouteDidChange");
+        onRouteDidChange={(url) => {
+          console.log("onRouteDidChange", url);
         }}
-        onBeforeRouteChange={() => {
-          console.log("onBeforeRouteChange");
+        onBeforeRouteChange={(url) => {
+          console.log("onBeforeRouteChange", url);
         }}
       >
         <Route
