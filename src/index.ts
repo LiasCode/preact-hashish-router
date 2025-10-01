@@ -9,3 +9,5 @@ export { Route } from "./Route";
 export { Router } from "./Router";
 
 export { RouterErrorBoundary } from "./RouterErrorBoundary";
+
+export { createDataRouter, type RouteData } from "./createDataRouter";
