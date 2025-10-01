@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.12
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.11...v0.1.12)
+
+### 🚀 Enhancements
+
+- Pass path to router hooks ([f73a679](https://github.com/LiasCode/preact-hashish-router/commit/f73a679))
+- Add createDataRouter ([c209d6d](https://github.com/LiasCode/preact-hashish-router/commit/c209d6d))
+
+### 🏡 Chore
+
+- **release:** V0.1.11 ([9135c7e](https://github.com/LiasCode/preact-hashish-router/commit/9135c7e))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.11
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.10...v0.1.11)
