@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.13
+
+[compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.12...v0.1.13)
+
+### 🩹 Fixes
+
+- Update vite ([e7541b4](https://github.com/LiasCode/preact-hashish-router/commit/e7541b4))
+
+### 🏡 Chore
+
+- Update README docs for data router ([cc419eb](https://github.com/LiasCode/preact-hashish-router/commit/cc419eb))
+- Bump dep rou3 and other devDeps ([9c77284](https://github.com/LiasCode/preact-hashish-router/commit/9c77284))
+- Bump biome to v2 and remove console.log ([c4f5307](https://github.com/LiasCode/preact-hashish-router/commit/c4f5307))
+
+### ❤️ Contributors
+
+- LiasCode <liasraul00@gmail.com>
+
 ## v0.1.12
 
 [compare changes](https://github.com/LiasCode/preact-hashish-router/compare/v0.1.11...v0.1.12)
