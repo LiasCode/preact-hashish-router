@@ -1,8 +1,8 @@
-import type { VNode } from "preact";
+import { Fragment, type VNode } from "preact";
 
 export const NotFound = (props: { element: VNode<any> }) => {
   set_not_found_element(props.element);
-  return <></>;
+  return <Fragment />;
 };
 
 let not_found_element: VNode<any> = <div>404 Not Found</div>;

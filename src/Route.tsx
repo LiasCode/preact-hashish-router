@@ -1,4 +1,4 @@
-import type { VNode } from "preact";
+import { Fragment, type VNode } from "preact";
 import { add_route_to_matcher } from "./router/matcher";
 
 export type RouteProps = {
@@ -22,5 +22,5 @@ export type RouteProps = {
 
 export function Route(props: RouteProps) {
   add_route_to_matcher(props.path, props);
-  return <></>;
+  return <Fragment />;
 }

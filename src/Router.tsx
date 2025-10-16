@@ -49,7 +49,6 @@ export const Router = ({
     useState<HashisherContextVal["active_route_data"]>(null);
   const renderCount = useRef(0);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <>
   const exec_route_change = useCallback(
     async (raw_path: string | null) => {
       const { params, path, route_data, search_params } = await calculateNextRouteData(

@@ -16,8 +16,6 @@ function addRoute(data: RouteData[], stackPath = "") {
   for (const r of data) {
     const stackedPath = joinPathWithParent(stackPath, r.path);
 
-    console.log(stackedPath);
-
     add_route_to_matcher(stackedPath, {
       element: r.element,
       fallback: r.fallback,
