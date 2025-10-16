@@ -45,7 +45,7 @@
     "README.md"
   ],
   "dependencies": {
-    "rou3": "0.7.3",
+    "rou3": "0.7.7",
     "ufo": "1.6.1"
   },
   "peerDependencies": {
@@ -53,11 +53,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@types/node": "22.18.0",
+    "@types/node": "24.7.2",
     "changelogen": "0.6.2",
-    "esbuild": "0.25.9",
+    "esbuild": "0.25.11",
     "prettier": "3.6.2",
-    "prettier-plugin-organize-imports": "4.2.0",
-    "typescript": "5.9.2"
+    "prettier-plugin-organize-imports": "4.3.0",
+    "typescript": "5.9.3"
   }
 }

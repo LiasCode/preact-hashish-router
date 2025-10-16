@@ -12,7 +12,7 @@ export function createDataRouter(data: RouteData[]) {
   return Router;
 }
 
-function addRoute(data: RouteData[], stackPath: string = "") {
+function addRoute(data: RouteData[], stackPath = "") {
   for (const r of data) {
     const stackedPath = joinPathWithParent(stackPath, r.path);
 
@@ -32,13 +32,11 @@ function addRoute(data: RouteData[], stackPath: string = "") {
 
 const joinPathWithParent = (parent: string, children: string) => {
   const steps = parent.split("/").filter(Boolean);
+  const step_children = children.split("/").filter(Boolean);
 
-  children
-    .split("/")
-    .filter(Boolean)
-    .forEach((s) => {
-      steps.push(s);
-    });
+  for (const s of step_children) {
+    steps.push(s);
+  }
 
   const stackedPath = `/${steps.join("/")}`;
 
